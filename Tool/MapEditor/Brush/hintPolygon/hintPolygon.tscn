@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cye25covpcbic"]
+
+[ext_resource type="Script" uid="uid://qxuctksvd4ft" path="res://Tool/MapEditor/Brush/hintPolygon/hint_polygon.gd" id="1_8jc7d"]
+
+[node name="HintPolygon" type="Node2D"]
+script = ExtResource("1_8jc7d")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+closed = true
+width = 3.0
+default_color = Color(1, 0.129412, 0.133333, 1)

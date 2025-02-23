@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://djqjw6hdc8kyt"]
+
+[ext_resource type="Script" uid="uid://dxlv4owxlnyhd" path="res://MapObjects/DestroyableBlock/BaseScene/destoryable_block_base_scene.gd" id="1_kf40v"]
+
+[node name="DestoryableBlockBaseScene" type="StaticBody2D" groups=["Block"]]
+script = ExtResource("1_kf40v")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+closed = true
+width = 3.0
+default_color = Color(1, 0.647059, 0.109804, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+unique_name_in_owner = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]

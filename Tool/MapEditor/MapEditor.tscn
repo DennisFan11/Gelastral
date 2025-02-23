@@ -1,0 +1,167 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxsa6drjsui0i"]
+
+[ext_resource type="Script" uid="uid://cxkp8wvbqj6j2" path="res://Tool/MapEditor/map_editor.gd" id="1_u42br"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xels"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="MapEditor" type="Node2D"]
+script = ExtResource("1_u42br")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -314.0
+offset_right = -18.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2xels")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Object" type="HFlowContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="BrushButton" type="Button" parent="CanvasLayer/Control/PanelContainer/MarginContainer/TabContainer/Object"]
+layout_mode = 2
+text = "Terrain Brush"
+
+[node name="BrushEditor" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -235.0
+offset_top = 12.0
+offset_right = -15.0
+offset_bottom = 194.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2xels")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/BrushEditor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Block" type="HFlowContainer" parent="CanvasLayer/Control/BrushEditor/MarginContainer"]
+layout_mode = 2
+
+[node name="ShapeContainer" type="HBoxContainer" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block"]
+layout_mode = 2
+
+[node name="Shape" type="Label" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/ShapeContainer"]
+layout_mode = 2
+text = "Shape"
+
+[node name="CIRCLE_Button" type="Button" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/ShapeContainer"]
+layout_mode = 2
+text = "CIRCLE"
+
+[node name="SQUARE_Button" type="Button" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/ShapeContainer"]
+layout_mode = 2
+text = "SQUARE"
+
+[node name="TypeContainer" type="HBoxContainer" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block"]
+layout_mode = 2
+
+[node name="Type" type="Label" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/TypeContainer"]
+layout_mode = 2
+text = "Type"
+
+[node name="POINT_Button" type="Button" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/TypeContainer"]
+layout_mode = 2
+text = "POINT"
+
+[node name="LINE_Button" type="Button" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/TypeContainer"]
+layout_mode = 2
+text = "LINE"
+
+[node name="IDContainer" type="HBoxContainer" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block"]
+layout_mode = 2
+
+[node name="ID" type="Label" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/IDContainer"]
+layout_mode = 2
+text = "ID"
+
+[node name="IDEdit" type="TextEdit" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/IDContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60.725, 0)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+
+[node name="IDEnterButton" type="Button" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/IDContainer"]
+layout_mode = 2
+text = "enter"
+
+[node name="RadiusContainer2" type="HBoxContainer" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block"]
+layout_mode = 2
+
+[node name="Radius" type="Label" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/RadiusContainer2"]
+layout_mode = 2
+text = "Radius"
+
+[node name="RadiusEdit" type="TextEdit" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/RadiusContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60.725, 0)
+layout_mode = 2
+text = "70"
+scroll_fit_content_height = true
+
+[node name="RadiusEnterButton" type="Button" parent="CanvasLayer/Control/BrushEditor/MarginContainer/Block/RadiusContainer2"]
+layout_mode = 2
+text = "enter"
+
+[connection signal="button_down" from="CanvasLayer/Control/PanelContainer/MarginContainer/TabContainer/Object/BrushButton" to="." method="_on_brush_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/BrushEditor/MarginContainer/Block/ShapeContainer/CIRCLE_Button" to="." method="_on_circle_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/BrushEditor/MarginContainer/Block/ShapeContainer/SQUARE_Button" to="." method="_on_square_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/BrushEditor/MarginContainer/Block/TypeContainer/POINT_Button" to="." method="_on_point_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/BrushEditor/MarginContainer/Block/TypeContainer/LINE_Button" to="." method="_on_line_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/BrushEditor/MarginContainer/Block/IDContainer/IDEnterButton" to="." method="_on_id_enter_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/BrushEditor/MarginContainer/Block/RadiusContainer2/RadiusEnterButton" to="." method="_on_radius_enter_button_button_down"]
