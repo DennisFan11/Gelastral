@@ -1,4 +1,4 @@
-class_name DestoryableBlockBaseScene extends Node2D
+class_name DestoryableBlockBaseScene extends StaticBody2D
 
 var ID:int
 var Position:Vector2:

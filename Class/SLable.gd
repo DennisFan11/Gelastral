@@ -1,4 +1,4 @@
-class_name SLable extends Node
+class_name SLable extends Node2D
 
 #region 方法複寫
 

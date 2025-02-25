@@ -1,0 +1,133 @@
+[gd_resource type="Resource" script_class="MapData" load_steps=2 format=3 uid="uid://ba6e8oicxv8a1"]
+
+[ext_resource type="Script" uid="uid://c80dyjsmduyst" path="res://MapObjects/MapSaveData.gd" id="1_q0s0x"]
+
+[resource]
+script = ExtResource("1_q0s0x")
+terrain = {
+Vector2(0, 0): [{
+"ID": 0,
+"Polygon": PackedVector2Array(59, 4, 39, 8, 31, 8, 12, 31, 8, 31, 4, 59, 0, 59, 0, 100, 100, 100, 100, 0, 59, 0),
+"PosID": Vector2(0, 0)
+}],
+Vector2(0, 1): [{
+"ID": 0,
+"Polygon": PackedVector2Array(0, 200, 100, 200, 100, 100, 0, 100),
+"PosID": Vector2(0, 1)
+}],
+Vector2(0, 2): [{
+"ID": 0,
+"Polygon": PackedVector2Array(0, 300, 100, 300, 100, 200, 0, 200),
+"PosID": Vector2(0, 2)
+}],
+Vector2(0, 3): [{
+"ID": 0,
+"Polygon": PackedVector2Array(0, 400, 100, 400, 100, 300, 0, 300),
+"PosID": Vector2(0, 3)
+}],
+Vector2(0, 4): [{
+"ID": 0,
+"Polygon": PackedVector2Array(0, 441, 8, 461, 8, 469, 31, 488, 31, 492, 59, 500, 100, 500, 100, 400, 0, 400),
+"PosID": Vector2(0, 4)
+}],
+Vector2(1, 0): [{
+"ID": 0,
+"Polygon": PackedVector2Array(100, 100, 200, 100, 200, 0, 100, 0),
+"PosID": Vector2(1, 0)
+}],
+Vector2(1, 1): [{
+"ID": 0,
+"Polygon": PackedVector2Array(100, 200, 200, 200, 200, 100, 100, 100),
+"PosID": Vector2(1, 1)
+}],
+Vector2(1, 2): [{
+"ID": 0,
+"Polygon": PackedVector2Array(100, 300, 200, 300, 200, 200, 100, 200),
+"PosID": Vector2(1, 2)
+}],
+Vector2(1, 3): [{
+"ID": 0,
+"Polygon": PackedVector2Array(100, 400, 200, 400, 200, 300, 100, 300),
+"PosID": Vector2(1, 3)
+}],
+Vector2(1, 4): [{
+"ID": 0,
+"Polygon": PackedVector2Array(100, 500, 200, 500, 200, 400, 100, 400),
+"PosID": Vector2(1, 4)
+}],
+Vector2(2, 0): [{
+"ID": 0,
+"Polygon": PackedVector2Array(200, 100, 300, 100, 300, 0, 200, 0),
+"PosID": Vector2(2, 0)
+}],
+Vector2(2, 1): [{
+"ID": 0,
+"Polygon": PackedVector2Array(200, 200, 300, 200, 300, 100, 200, 100),
+"PosID": Vector2(2, 1)
+}],
+Vector2(2, 2): [{
+"ID": 0,
+"Polygon": PackedVector2Array(200, 300, 300, 300, 300, 200, 200, 200),
+"PosID": Vector2(2, 2)
+}],
+Vector2(2, 3): [{
+"ID": 0,
+"Polygon": PackedVector2Array(200, 400, 300, 400, 300, 300, 200, 300),
+"PosID": Vector2(2, 3)
+}],
+Vector2(2, 4): [{
+"ID": 0,
+"Polygon": PackedVector2Array(200, 500, 300, 500, 300, 400, 200, 400),
+"PosID": Vector2(2, 4)
+}],
+Vector2(3, 0): [{
+"ID": 0,
+"Polygon": PackedVector2Array(300, 100, 400, 100, 400, 0, 300, 0),
+"PosID": Vector2(3, 0)
+}],
+Vector2(3, 1): [{
+"ID": 0,
+"Polygon": PackedVector2Array(300, 200, 400, 200, 400, 100, 300, 100),
+"PosID": Vector2(3, 1)
+}],
+Vector2(3, 2): [{
+"ID": 0,
+"Polygon": PackedVector2Array(300, 300, 400, 300, 400, 200, 300, 200),
+"PosID": Vector2(3, 2)
+}],
+Vector2(3, 3): [{
+"ID": 0,
+"Polygon": PackedVector2Array(300, 400, 400, 400, 400, 300, 300, 300),
+"PosID": Vector2(3, 3)
+}],
+Vector2(3, 4): [{
+"ID": 0,
+"Polygon": PackedVector2Array(300, 500, 400, 500, 400, 400, 300, 400),
+"PosID": Vector2(3, 4)
+}],
+Vector2(4, 0): [{
+"ID": 0,
+"Polygon": PackedVector2Array(400, 100, 500, 100, 500, 59, 492, 39, 492, 31, 461, 8, 461, 4, 400, 0),
+"PosID": Vector2(4, 0)
+}],
+Vector2(4, 1): [{
+"ID": 0,
+"Polygon": PackedVector2Array(400, 200, 500, 200, 500, 100, 400, 100),
+"PosID": Vector2(4, 1)
+}],
+Vector2(4, 2): [{
+"ID": 0,
+"Polygon": PackedVector2Array(400, 300, 500, 300, 500, 200, 400, 200),
+"PosID": Vector2(4, 2)
+}],
+Vector2(4, 3): [{
+"ID": 0,
+"Polygon": PackedVector2Array(400, 400, 500, 400, 500, 300, 400, 300),
+"PosID": Vector2(4, 3)
+}],
+Vector2(4, 4): [{
+"ID": 0,
+"Polygon": PackedVector2Array(400, 500, 441, 500, 461, 492, 469, 492, 488, 469, 492, 469, 496, 441, 500, 441, 500, 400, 400, 400),
+"PosID": Vector2(4, 4)
+}]
+}

@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=3 uid="uid://fw2drj044cs"]
+
+[ext_resource type="PackedScene" uid="uid://cfoyfn5wnxo4m" path="res://Tool/MapGenerator/MapShader/MapShader.tscn" id="1_m1w40"]
+[ext_resource type="Script" uid="uid://dbrmtyne5nfh0" path="res://Tool/MapGenerator/map_generator.gd" id="1_nqybv"]
+[ext_resource type="PackedScene" uid="uid://d0wlq7akw4376" path="res://Tool/MapGenerator/ScreenShooter/ScreenShooter.tscn" id="2_wx6co"]
+[ext_resource type="Theme" uid="uid://ddsm8o2y4uwmj" path="res://Tool/TestUI_Theme.tres" id="4_u2srh"]
+
+[node name="MapGenerator" type="Node"]
+script = ExtResource("1_nqybv")
+
+[node name="MapShader" parent="." instance=ExtResource("1_m1w40")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_u2srh")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 357.0
+offset_right = -935.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="FileNameEdit" type="TextEdit" parent="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Enter Map Name"
+scroll_fit_content_height = true
+
+[node name="SaveButton" type="Button" parent="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Save Map"
+
+[node name="ThreadContainer" type="HBoxContainer" parent="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ThreadSlider" type="HSlider" parent="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/ThreadContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112.475, 0)
+layout_mode = 2
+focus_mode = 0
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+rounded = true
+
+[node name="ThreadLabel" type="Label" parent="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/ThreadContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1 線程"
+
+[node name="ScreenShooter" parent="." instance=ExtResource("2_wx6co")]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/ThreadContainer/ThreadSlider" to="." method="_on_thread_slider_value_changed"]

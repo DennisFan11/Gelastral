@@ -12,37 +12,38 @@ var ID:int:
 	set(new):
 		ID = new
 		_base_scene.ID = new
-var Position:Vector2:
+var PosID:Vector2: # FIXME 調整為基於 BlockSize ID
 	set(new):
-		Position = new
-		_base_scene.Position = new
-var Polygon:PackedVector2Array: # global polygon FIXME 原本為 local
+		PosID = new
+		_base_scene.Position = new * BlockSize
+var Polygon:PackedVector2Array:
 	set(new):
 		if Geometry2D.triangulate_polygon(new).size() == 0:
+			print("Triangulate Failed")
 			queue_free()
 			return
 		#new = Geometry2D.convex_hull(new)
 		Polygon = new
 		_base_scene.Polygon = new
 
-
-#region SLable 實做區域
-
-func _save_dict()-> Dictionary:
-	return {"ID":ID, "Position":Position, "Polygon":Polygon}
-func _load_dict(dict: Dictionary):
-	ID = dict["ID"]
-	Position = dict["Position"]
-	Polygon = dict["Polygon"]
-
-#endregion
+#
+##region SLable 實做區域
+#
+#func _save_dict()-> Dictionary:
+	#return {"ID":ID, "Position":Position, "Polygon":Polygon}
+#func _load_dict(dict: Dictionary):
+	#ID = dict["ID"]
+	#Position = dict["Position"]
+	#Polygon = dict["Polygon"]
+#
+##endregion
 
 ## 創建新的實例
-func _init(_id:int, _position:Vector2, _polygon:PackedVector2Array) -> void:
+func _init(_id:int, _PosID:Vector2, _polygon:PackedVector2Array) -> void:
 	var file := preload("res://MapObjects/DestroyableBlock/BaseScene/DestoryableBlock_BaseScene.tscn")
 	_base_scene = file.instantiate()
 	add_child(_base_scene)
-	ID = _id; Position = _position; Polygon = _polygon
+	ID = _id; PosID = _PosID; Polygon = _polygon
 	
 
 
@@ -108,7 +109,7 @@ func _self_split(): # 區塊優化
 	var R= 8 # 擴張涉及的區塊 越大的單次擴張需要越大的值
 	for x in range(-R,R+1): # 初始化 座標及多邊形陣列
 		for y in range(-R,R+1):
-			var pos = Vector2(x,y)*BLOCK_SIZE + Position
+			var pos = Vector2(x,y)*BLOCK_SIZE + PosID*BlockSize
 			arr_pos.append(pos)
 			arr_poly.append(PackedVector2Array([
 				Vector2(pos.x,pos.y),
@@ -119,7 +120,7 @@ func _self_split(): # 區塊優化
 	# 相交生成
 	for i in range(arr_pos.size()):
 		var need_polygons = Geometry2D.intersect_polygons(Polygon, arr_poly[i])
-		_group_spawn(ID, arr_pos[i], need_polygons)
+		_group_spawn(ID, arr_pos[i]/BlockSize, need_polygons) # ATTENTION FIXME
 	queue_free()
 	return
 
@@ -139,7 +140,7 @@ func _clip(global_polygon:PackedVector2Array)-> float:
 		clipped[i] = GeometryTool.VertexOptimization(clipped[i], origin, BlockSize)
 	clipped = GeometryTool.Merge_hole_polygon(clipped) # 合併有孔多邊形
 	Polygon = (clipped.pop_front()) # 重設自身多邊形
-	_group_spawn(ID, Position, clipped) # 實例化剩餘多邊形
+	_group_spawn(ID, PosID, clipped) # 實例化剩餘多邊形
 	return GeometryTool.Calculate_polygon_area(origin, global_polygon) # 面積計算
 
 func _merge(global_polygon:PackedVector2Array)->float:
@@ -154,7 +155,7 @@ func _merge(global_polygon:PackedVector2Array)->float:
 		#merged[i] = VertexOptimization(merged[i], origin, BlockSize)
 	### BUG 沒有帶孔多邊形合併
 	Polygon = (merged.pop_front()) # 重設自身多邊形
-	_group_spawn(ID, Position, merged) # 實例化剩餘多邊形
+	_group_spawn(ID, PosID, merged) # 實例化剩餘多邊形
 	
 	### ATTENTION Self Split timer start
 	_set_split_timer()
@@ -170,7 +171,7 @@ func _after_optimize_clip(global_polygon:PackedVector2Array)-> float: # TEST 高
 		return GeometryTool.Calculate_polygon_area(origin, global_polygon)
 	clipped = GeometryTool.Merge_hole_polygon(clipped) # 合併有孔多邊形
 	Polygon = (clipped.pop_front()) # 重設自身多邊形
-	_group_spawn(ID, Position, clipped) # 實例化剩餘多邊形
+	_group_spawn(ID, PosID, clipped) # 實例化剩餘多邊形
 	
 	### ATTENTION Self optimize timer start
 	if last_origin.size() == 0:
