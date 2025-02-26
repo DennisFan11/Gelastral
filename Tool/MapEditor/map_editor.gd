@@ -55,4 +55,4 @@ func _on_id_enter_button_button_down() -> void:
 
 
 func _on_radius_enter_button_button_down() -> void:
-	brush.Radius = float(%IDEdit.text)
+	brush.Radius = float(%RadiusEdit.text)

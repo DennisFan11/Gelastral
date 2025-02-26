@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://mxdp2jvdqkv2"]
+
+[ext_resource type="Script" uid="uid://d1oeh0y0ky5b1" path="res://Class/Components/LoadingCircle/loading_circle.gd" id="1_gor2t"]
+
+[node name="LoadingCircle" type="Node2D"]
+script = ExtResource("1_gor2t")
+
+[node name="Camera2D" type="Camera2D" parent="."]
