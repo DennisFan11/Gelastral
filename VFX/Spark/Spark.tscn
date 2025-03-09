@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmgy0scju641j"]
+
+[ext_resource type="Texture2D" uid="uid://de6jb3onw8l2t" path="res://VFX/Textures/2d_lights_and_shadows_neutral_point_light.webp" id="1_n7pkp"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gj1to"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_6wdr3"]
+_data = [Vector2(0, 0.550432), 0.0, 0.0, 0, 0, Vector2(1, 0.20389), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_y583u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_obaj7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_bysci"]
+curve_x = SubResource("Curve_6wdr3")
+curve_y = SubResource("Curve_y583u")
+curve_z = SubResource("Curve_obaj7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mf6w2"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 15.0
+emission_ring_radius = 19.68
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 355.1
+initial_velocity_max = 455.11
+radial_velocity_min = 287.93
+radial_velocity_max = 504.65
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.09
+scale_curve = SubResource("CurveXYZTexture_bysci")
+color = Color(2.2, 1.3, 0.5, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6wdr3"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_bysci"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.263158, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mf6w2"]
+curve = SubResource("Curve_bysci")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gx2ld"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_mf6w2")
+color = Color(1.2, 1, 0.5, 1)
+
+[node name="Spark" type="Node2D"]
+
+[node name="Sparks" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_gj1to")
+amount = 15
+texture = ExtResource("1_n7pkp")
+lifetime = 0.1
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_mf6w2")
+
+[node name="Light" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_6wdr3")
+amount = 1
+texture = ExtResource("1_n7pkp")
+lifetime = 0.15
+process_material = SubResource("ParticleProcessMaterial_gx2ld")

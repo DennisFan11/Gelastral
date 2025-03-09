@@ -8,3 +8,6 @@ uniform sampler2D IORN_NOISE;
 void fragment() {
 	// Called for every pixel the material is visible on.
 }
+void light(){
+
+}

@@ -1,4 +1,4 @@
-extends Node2D
+class_name MapEditor extends Node2D
 
 const CameraSpeed:float = 5 # lerp time
 const CameraZoomSpeed:float = 1.2 

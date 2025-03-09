@@ -1,4 +1,4 @@
-extends Node
+class_name MapGenerator extends Node
 
 var _thread_count:int = 1
 var _screen_shooter_scene := preload("res://Tool/MapGenerator/ScreenShooter/ScreenShooter.tscn")

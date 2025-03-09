@@ -1,0 +1,239 @@
+[gd_resource type="VisualShader" load_steps=24 format=3 uid="uid://bg6l3wjvxcwxn"]
+
+[ext_resource type="Texture2D" uid="uid://b48tsrb086rq2" path="res://Tool/MapGenerator/MapShader/shaders/IORN_NOISE.tres" id="1_gjhwr"]
+[ext_resource type="Script" uid="uid://c8yha8mkv5tts" path="res://addons/ShaderLib_v2_2_4/UV/TwirlUV.gd" id="2_cp36m"]
+[ext_resource type="Script" uid="uid://bdw55drb5mfp8" path="res://addons/ShaderLib_v2_2_4/UV/SpherizeUV.gd" id="3_5j0uj"]
+[ext_resource type="Script" uid="uid://bxg062i37n8x7" path="res://addons/ShaderLib_v2_2_4/UV/RadialShearUV.gd" id="4_vp23q"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_0bpbo"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0.5, 0.5)]
+op_type = 0
+operator = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_bwlj3"]
+output_port_for_preview = 0
+default_input_values = [0, 0.5, 1, 0.0]
+operator = 1
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_i31qk"]
+output_port_for_preview = 0
+default_input_values = [0, 0.0, 1, 1.0, 2, 1.29]
+
+[sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_lyrc7"]
+output_port_for_preview = 0
+default_input_values = [0, 0.5, 1, 0.45, 2, 0.5]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_jh75c"]
+output_port_for_preview = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_bp1ge"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_tjlkh"]
+output_port_for_preview = 0
+operator = 3
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_5faiy"]
+function = 14
+
+[sub_resource type="VisualShaderNodeIntConstant" id="VisualShaderNodeIntConstant_kj10t"]
+constant = 5
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_bityv"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+texture = ExtResource("1_gjhwr")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3850s"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+texture = ExtResource("1_gjhwr")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_i80qg"]
+output_port_for_preview = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_bscmi"]
+output_port_for_preview = 0
+default_input_values = [0, null, 1, Vector2(0.5, 0.5), 2, 10.0, 3, Vector2(0, 0)]
+initialized = true
+script = ExtResource("2_cp36m")
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_lw88y"]
+output_port_for_preview = 0
+default_input_values = [0, null, 1, Vector2(0.5, 0.5), 2, 10.0, 3, Vector2(0, 0)]
+initialized = true
+script = ExtResource("3_5j0uj")
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_j4cxi"]
+output_port_for_preview = 0
+default_input_values = [0, null, 1, Vector2(0.5, 0.5), 2, 10.0, 3, Vector2(0, 0)]
+initialized = true
+script = ExtResource("4_vp23q")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_rfic7"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+texture = ExtResource("1_gjhwr")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_y4222"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorLen" id="VisualShaderNodeVectorLen_h1nri"]
+output_port_for_preview = 0
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dl188"]
+input_name = "uv"
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D tex_frg_20 : source_color;
+uniform sampler2D tex_frg_19 : source_color;
+uniform sampler2D tex_frg_3 : source_color;
+
+
+// RadialShear
+#include \"res://addons/ShaderLib_v2_2_4/UV/UV.gdshaderinc\"
+// Spherize
+#include \"res://addons/ShaderLib_v2_2_4/UV/UV.gdshaderinc\"
+
+void fragment() {
+	vec2 n_out25p0;
+// RadialShear:25
+	vec2 n_in25p1 = vec2(0.50000, 0.50000);
+	float n_in25p2 = 10.00000;
+	vec2 n_in25p3 = vec2(0.00000, 0.00000);
+	{
+		n_out25p0 = radial_shear_uv(UV, n_in25p1, n_in25p2, n_in25p3);
+	}
+
+
+	vec2 n_out24p0;
+// Spherize:24
+	vec2 n_in24p1 = vec2(0.50000, 0.50000);
+	float n_in24p2 = 10.00000;
+	vec2 n_in24p3 = vec2(0.00000, 0.00000);
+	{
+		n_out24p0 = spherize_uv(n_out25p0, n_in24p1, n_in24p2, n_in24p3);
+	}
+
+
+// Texture2D:20
+	vec4 n_out20p0 = texture(tex_frg_20, n_out24p0);
+
+
+// Texture2D:19
+	vec4 n_out19p0 = texture(tex_frg_19, vec2(n_out20p0.xy));
+
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, vec2(n_out19p0.xy));
+	float n_out3p1 = n_out3p0.r;
+
+
+// Input:8
+	vec2 n_out8p0 = UV;
+
+
+// VectorOp:10
+	vec2 n_in10p1 = vec2(0.50000, 0.50000);
+	vec2 n_out10p0 = n_out8p0 - n_in10p1;
+
+
+// VectorLen:7
+	float n_out7p0 = length(n_out10p0);
+
+
+// FloatOp:11
+	float n_in11p0 = 0.50000;
+	float n_out11p0 = n_in11p0 - n_out7p0;
+
+
+// Mix:12
+	float n_in12p2 = 1.29000;
+	float n_out12p0 = mix(n_out3p1, n_out11p0, n_in12p2);
+
+
+// SmoothStep:13
+	float n_in13p0 = 0.50000;
+	float n_in13p1 = 0.45000;
+	float n_out13p0 = smoothstep(n_in13p0, n_in13p1, n_out7p0);
+
+
+// FloatOp:14
+	float n_out14p0 = n_out12p0 * n_out13p0;
+
+
+// IntConstant:18
+	int n_out18p0 = 5;
+
+
+// FloatOp:15
+	float n_out15p0 = n_out14p0 * float(n_out18p0);
+
+
+// FloatFunc:17
+	float n_out17p0 = floor(n_out15p0);
+
+
+// FloatOp:16
+	float n_out16p0 = n_out17p0 / float(n_out18p0);
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out16p0);
+	COLOR.a = n_out13p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(280, 200)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_rfic7")
+nodes/fragment/3/position = Vector2(-800, 140)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_y4222")
+nodes/fragment/4/position = Vector2(-1600, -140)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorLen_h1nri")
+nodes/fragment/7/position = Vector2(-1080, 920)
+nodes/fragment/8/node = SubResource("VisualShaderNodeInput_dl188")
+nodes/fragment/8/position = Vector2(-1600, 920)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorOp_0bpbo")
+nodes/fragment/10/position = Vector2(-1280, 920)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_bwlj3")
+nodes/fragment/11/position = Vector2(-800, 700)
+nodes/fragment/12/node = SubResource("VisualShaderNodeMix_i31qk")
+nodes/fragment/12/position = Vector2(-520, 520)
+nodes/fragment/13/node = SubResource("VisualShaderNodeSmoothStep_lyrc7")
+nodes/fragment/13/position = Vector2(-800, 1020)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFloatOp_jh75c")
+nodes/fragment/14/position = Vector2(-320, 840)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatOp_bp1ge")
+nodes/fragment/15/position = Vector2(40, 700)
+nodes/fragment/16/node = SubResource("VisualShaderNodeFloatOp_tjlkh")
+nodes/fragment/16/position = Vector2(40, 1000)
+nodes/fragment/17/node = SubResource("VisualShaderNodeFloatFunc_5faiy")
+nodes/fragment/17/position = Vector2(40, 880)
+nodes/fragment/18/node = SubResource("VisualShaderNodeIntConstant_kj10t")
+nodes/fragment/18/position = Vector2(40, 600)
+nodes/fragment/19/node = SubResource("VisualShaderNodeTexture_bityv")
+nodes/fragment/19/position = Vector2(-1040, 140)
+nodes/fragment/20/node = SubResource("VisualShaderNodeTexture_3850s")
+nodes/fragment/20/position = Vector2(-1280, 140)
+nodes/fragment/21/node = SubResource("VisualShaderNodeFloatOp_i80qg")
+nodes/fragment/21/position = Vector2(-900, -280)
+nodes/fragment/23/node = SubResource("VisualShaderNodeCustom_bscmi")
+nodes/fragment/23/position = Vector2(-2080, 40)
+nodes/fragment/24/node = SubResource("VisualShaderNodeCustom_lw88y")
+nodes/fragment/24/position = Vector2(-1620, 200)
+nodes/fragment/25/node = SubResource("VisualShaderNodeCustom_j4cxi")
+nodes/fragment/25/position = Vector2(-1825.9, -38.0857)
+nodes/fragment/connections = PackedInt32Array(8, 0, 10, 0, 10, 0, 7, 0, 7, 0, 11, 1, 11, 0, 12, 1, 3, 1, 12, 0, 7, 0, 13, 2, 13, 0, 14, 1, 12, 0, 14, 0, 15, 0, 17, 0, 17, 0, 16, 0, 18, 0, 16, 1, 14, 0, 15, 0, 18, 0, 15, 1, 13, 0, 0, 1, 16, 0, 0, 0, 19, 0, 3, 0, 20, 0, 19, 0, 20, 0, 21, 1, 4, 0, 21, 0, 25, 0, 24, 0, 24, 0, 20, 0)
