@@ -29,7 +29,8 @@ folder_colors={
 "res://Class/": "yellow",
 "res://MapObjects/": "green",
 "res://Scripts/": "purple",
-"res://Tool/": "red"
+"res://Tool/": "red",
+"res://VFX/": "gray"
 }
 
 [global_group]

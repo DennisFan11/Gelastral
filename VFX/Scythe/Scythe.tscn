@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3 uid="uid://ccyl2hfxflch3"]
+
+[ext_resource type="Script" uid="uid://cds4c5csosrtu" path="res://VFX/Scythe/scythe.gd" id="1_e2ksg"]
+[ext_resource type="Shader" uid="uid://cagmu1yrtdhu" path="res://VFX/Scythe/Scythe.tres" id="2_7ecqi"]
+[ext_resource type="Texture2D" uid="uid://bilk6o5lxfnh6" path="res://VFX/Textures/T_1_pixel.jpg" id="3_n0g6u"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n0g6u"]
+noise_type = 2
+frequency = 0.0035
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hs78x"]
+seamless = true
+noise = SubResource("FastNoiseLite_n0g6u")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hs78x"]
+offset = Vector3(823.53, 1000, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wts61"]
+noise = SubResource("FastNoiseLite_hs78x")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0g6u"]
+shader = ExtResource("2_7ecqi")
+shader_parameter/Texture2DParameter2 = SubResource("NoiseTexture2D_wts61")
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_hs78x")
+
+[sub_resource type="Curve" id="Curve_n0g6u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Scythe" type="Node2D"]
+script = ExtResource("1_e2ksg")
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_n0g6u")
+points = PackedVector2Array(-21.2132, -10.6066, -17.6336, -12.1353, -13.6197, -13.3651, -9.27051, -14.2658, -4.69303, -14.8153, -1.83697e-15, -15, 4.69303, -14.8153, 9.27051, -14.2658, 13.6197, -13.3651, 17.6336, -12.1353, 21.2132, -10.6066, 24.2705, -8.81678, 26.7302, -6.80986, 28.5317, -4.63525, 29.6306, -2.34652, 30, -1.83697e-15, 29.6306, 2.34652, 28.5317, 4.63525, 26.7302, 6.80986, 24.2705, 8.81678, 21.2132, 10.6066, 17.6336, 12.1353, 13.6197, 13.3651, 9.27051, 14.2658, 4.69303, 14.8153, 5.51091e-15, 15, -4.69303, 14.8153, -9.27051, 14.2658, -13.6197, 13.3651, -17.6336, 12.1353)
+width = 20.0
+width_curve = SubResource("Curve_n0g6u")
+texture = ExtResource("3_n0g6u")
+texture_mode = 2
+joint_mode = 1
