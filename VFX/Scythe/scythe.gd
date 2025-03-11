@@ -7,7 +7,7 @@ extends Node2D
 const R = 30.0
 const R_X = 30.0
 const R_Y = 15.0
-const POINT = 30
+const POINT = 64
 @export_tool_button("gen_point") var dosome = gen_point
 
 func gen_point():

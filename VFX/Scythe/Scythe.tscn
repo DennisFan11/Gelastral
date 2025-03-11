@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccyl2hfxflch3"]
+[gd_scene load_steps=9 format=3 uid="uid://ccyl2hfxflch3"]
 
 [ext_resource type="Script" uid="uid://cds4c5csosrtu" path="res://VFX/Scythe/scythe.gd" id="1_e2ksg"]
 [ext_resource type="Shader" uid="uid://cagmu1yrtdhu" path="res://VFX/Scythe/Scythe.tres" id="2_7ecqi"]
@@ -23,19 +23,13 @@ shader = ExtResource("2_7ecqi")
 shader_parameter/Texture2DParameter2 = SubResource("NoiseTexture2D_wts61")
 shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_hs78x")
 
-[sub_resource type="Curve" id="Curve_n0g6u"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [node name="Scythe" type="Node2D"]
 script = ExtResource("1_e2ksg")
 
 [node name="Line2D" type="Line2D" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_n0g6u")
-points = PackedVector2Array(-21.2132, -10.6066, -17.6336, -12.1353, -13.6197, -13.3651, -9.27051, -14.2658, -4.69303, -14.8153, -1.83697e-15, -15, 4.69303, -14.8153, 9.27051, -14.2658, 13.6197, -13.3651, 17.6336, -12.1353, 21.2132, -10.6066, 24.2705, -8.81678, 26.7302, -6.80986, 28.5317, -4.63525, 29.6306, -2.34652, 30, -1.83697e-15, 29.6306, 2.34652, 28.5317, 4.63525, 26.7302, 6.80986, 24.2705, 8.81678, 21.2132, 10.6066, 17.6336, 12.1353, 13.6197, 13.3651, 9.27051, 14.2658, 4.69303, 14.8153, 5.51091e-15, 15, -4.69303, 14.8153, -9.27051, 14.2658, -13.6197, 13.3651, -17.6336, 12.1353)
+points = PackedVector2Array(-21.2132, -10.6066, -17.871, -12.0481, -14.1419, -13.2288, -10.1067, -14.1232, -5.85271, -14.7118, -1.47203, -14.9819, 2.94051, -14.9278, 7.28941, -14.5505, 11.4805, -13.8582, 15.4231, -12.8659, 19.0318, -11.5952, 22.2285, -10.0734, 24.9441, -8.33355, 27.1197, -6.41333, 28.7082, -4.35427, 29.6753, -2.20096, 30, -1.83697e-15, 29.6753, 2.20096, 28.7082, 4.35427, 27.1197, 6.41333, 24.9441, 8.33355, 22.2285, 10.0734, 19.0318, 11.5952, 15.4231, 12.8659, 11.4805, 13.8582, 7.28941, 14.5505, 2.94051, 14.9278, -1.47203, 14.9819, -5.85271, 14.7118, -10.1067, 14.1232, -14.1419, 13.2288, -17.871, 12.0481)
 width = 20.0
-width_curve = SubResource("Curve_n0g6u")
 texture = ExtResource("3_n0g6u")
 texture_mode = 2
-joint_mode = 1
