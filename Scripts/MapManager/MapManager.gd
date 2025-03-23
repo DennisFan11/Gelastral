@@ -24,19 +24,19 @@ func merge( global_polygon:PackedVector2Array, id:int ):
 
 #endregion End of DestroyableBlock 操作區域
 
-
+## 更新 TerrainData
 func save_map(file_name:String):
-	var data = MapData.new()
+	var data = TerrainData.new()
 	for i:DestroyableBlock in %BlockNode.get_children():
 		data.add_instance_block_to_key(i)
-	
-	data.save_map(file_name)
+	MapData.instance.terrain_data = data
+	MapData.save_map(file_name)
 	
 func load_map(file_name:String):
 	for i:DestroyableBlock in %BlockNode.get_children():
 		if is_instance_valid(i): i.queue_free()
-	var data := MapData.load_map(file_name)
-	data.spawn_blocks()
+	MapData.load_map(file_name)
+	MapData.instance.terrain_data.spawn()
 
 
 ## 用於提示玩家的純視覺節點
@@ -54,7 +54,13 @@ func add_hint_node(node:Node2D): # FIXME WIP
 
 
 
-#--------------------------內部實作---------------------------
+#========================================內部實作========================================
+
+
+
+
+
+
 
 #region 地形操作相關實做區域
 func _ready() -> void:

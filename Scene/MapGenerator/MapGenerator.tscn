@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://fw2drj044cs"]
 
-[ext_resource type="PackedScene" uid="uid://cfoyfn5wnxo4m" path="res://Tool/MapGenerator/MapShader/MapShader.tscn" id="1_m1w40"]
-[ext_resource type="Script" uid="uid://dbrmtyne5nfh0" path="res://Tool/MapGenerator/map_generator.gd" id="1_nqybv"]
-[ext_resource type="PackedScene" uid="uid://d0wlq7akw4376" path="res://Tool/MapGenerator/ScreenShooter/ScreenShooter.tscn" id="2_wx6co"]
-[ext_resource type="Theme" uid="uid://ddsm8o2y4uwmj" path="res://Tool/TestUI_Theme.tres" id="4_u2srh"]
+[ext_resource type="PackedScene" uid="uid://cfoyfn5wnxo4m" path="res://Scene/MapGenerator/MapShader/MapShader.tscn" id="1_m1w40"]
+[ext_resource type="Script" uid="uid://dbrmtyne5nfh0" path="res://Scene/MapGenerator/map_generator.gd" id="1_nqybv"]
+[ext_resource type="PackedScene" uid="uid://d0wlq7akw4376" path="res://Scene/MapGenerator/ScreenShooter/ScreenShooter.tscn" id="2_wx6co"]
+[ext_resource type="Theme" uid="uid://ddsm8o2y4uwmj" path="res://Scene/TestUI_Theme.tres" id="4_u2srh"]
 
 [node name="MapGenerator" type="Node"]
 script = ExtResource("1_nqybv")

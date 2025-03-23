@@ -11,7 +11,7 @@ var brush:BlockDrawingTool:
 
 var CameraTargetPosition = Vector2.ZERO
 func _process(delta: float) -> void:
-	CameraTargetPosition += Input.get_vector("left", "right", "up", "down") * 165 * delta
+	CameraTargetPosition += Input.get_vector("left", "right", "up", "down") * 300 * delta
 	$Camera2D.position = $Camera2D.position.lerp(CameraTargetPosition, CameraSpeed*delta)
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl2snoojjsghs"]
+
+[ext_resource type="Script" uid="uid://dgc0gpih48u4j" path="res://Scene/GameMain/PlayerSlime/player_slime.gd" id="1_ac0y4"]
+[ext_resource type="Script" uid="uid://8e4bc7c0k52e" path="res://Scene/GameMain/PlayerSlime/slime_body.gd" id="2_ulfnc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ulfnc"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ulfnc"]
+
+[node name="PlayerSlime" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_ac0y4")
+metadata/_edit_vertical_guides_ = [50.0, -50.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ulfnc")
+
+[node name="SlimeBody" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_ulfnc")
+
+[node name="TestNode" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TestNode"]
+position = Vector2(0, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestNode/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_ulfnc")
+
+[node name="Camera2D" type="Camera2D" parent="TestNode/StaticBody2D"]
+position = Vector2(0, -40.28)

@@ -38,7 +38,7 @@ func scan_block(
 				polygons[i][j] = polygons[i][j]/precision + (block_id * block_size)
 		# NOTE 對 polygons 進行處理
 		for polygon in polygons:
-			block_arr.append(MapData.block_to_dict(
+			block_arr.append(TerrainData.block_to_dict(
 				layer, 
 				block_id, 
 				GeometryTool.VertexOptimization(polygon, polygon, block_size)

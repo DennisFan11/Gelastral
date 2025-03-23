@@ -123,7 +123,7 @@ var _color_map = {
 var _hint_polygon:HintPolygon
 
 func _ready() -> void:
-	_hint_polygon = preload("res://Tool/MapEditor/Brush/hintPolygon/hintPolygon.tscn").instantiate()
+	_hint_polygon = preload("uid://cye25covpcbic").instantiate()
 	MapManager.add_hint_node(_hint_polygon)
 
 func _exit_tree() -> void:

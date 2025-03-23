@@ -1,5 +1,5 @@
 class_name DestroyableBlock
-extends SLable
+extends Node2D
 
 
 var _base_scene:DestoryableBlockBaseScene
@@ -26,17 +26,6 @@ var Polygon:PackedVector2Array:
 		Polygon = new
 		_base_scene.Polygon = new
 
-#
-##region SLable 實做區域
-#
-#func _save_dict()-> Dictionary:
-	#return {"ID":ID, "Position":Position, "Polygon":Polygon}
-#func _load_dict(dict: Dictionary):
-	#ID = dict["ID"]
-	#Position = dict["Position"]
-	#Polygon = dict["Polygon"]
-#
-##endregion
 
 ## 創建新的實例
 func _init(_id:int, _PosID:Vector2, _polygon:PackedVector2Array) -> void:

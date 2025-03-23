@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Gelastral"
-run/main_scene="uid://bxsa6drjsui0i"
+run/main_scene="uid://b4706nwwri4vx"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.svg"
 
@@ -28,6 +28,7 @@ window/stretch/mode="canvas_items"
 folder_colors={
 "res://Class/": "yellow",
 "res://MapObjects/": "green",
+"res://Scene/": "red",
 "res://Scripts/": "purple",
 "res://Tool/": "red",
 "res://VFX/": "gray"

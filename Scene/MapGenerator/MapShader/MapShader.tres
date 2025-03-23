@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=24 format=3 uid="uid://bg6l3wjvxcwxn"]
 
-[ext_resource type="Texture2D" uid="uid://b48tsrb086rq2" path="res://Tool/MapGenerator/MapShader/shaders/IORN_NOISE.tres" id="1_gjhwr"]
+[ext_resource type="Texture2D" uid="uid://b48tsrb086rq2" path="res://Scene/MapGenerator/MapShader/shaders/IORN_NOISE.tres" id="1_gjhwr"]
 [ext_resource type="Script" uid="uid://c8yha8mkv5tts" path="res://addons/ShaderLib_v2_2_4/UV/TwirlUV.gd" id="2_cp36m"]
 [ext_resource type="Script" uid="uid://bdw55drb5mfp8" path="res://addons/ShaderLib_v2_2_4/UV/SpherizeUV.gd" id="3_5j0uj"]
 [ext_resource type="Script" uid="uid://bxg062i37n8x7" path="res://addons/ShaderLib_v2_2_4/UV/RadialShearUV.gd" id="4_vp23q"]

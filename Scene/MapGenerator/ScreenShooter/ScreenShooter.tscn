@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0wlq7akw4376"]
 
-[ext_resource type="Script" uid="uid://bpf8bc15uty37" path="res://Tool/MapGenerator/ScreenShooter/screen_shooter.gd" id="1_kjnbb"]
-[ext_resource type="PackedScene" uid="uid://cfoyfn5wnxo4m" path="res://Tool/MapGenerator/MapShader/MapShader.tscn" id="1_pujcf"]
+[ext_resource type="Script" uid="uid://bpf8bc15uty37" path="res://Scene/MapGenerator/ScreenShooter/screen_shooter.gd" id="1_kjnbb"]
+[ext_resource type="PackedScene" uid="uid://cfoyfn5wnxo4m" path="res://Scene/MapGenerator/MapShader/MapShader.tscn" id="1_pujcf"]
 
 [node name="ScreenShooter" type="Node"]
 script = ExtResource("1_kjnbb")
