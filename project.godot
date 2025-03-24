@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Gelastral"
-run/main_scene="uid://b4706nwwri4vx"
+run/main_scene="uid://dl2snoojjsghs"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.svg"
 
