@@ -136,7 +136,7 @@ func _merge(global_polygon:PackedVector2Array)->float:
 	var origin = Polygon
 	var merged = Geometry2D.merge_polygons(origin, global_polygon)
 	if merged.size() == 0:
-		assert(false)
+		#assert(false)
 		queue_free()
 		return GeometryTool.Calculate_polygon_area(origin, global_polygon)
 	

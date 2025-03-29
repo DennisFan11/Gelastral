@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://der36220txty8"]
-
-[node name="Link" type="DampedSpringJoint2D"]
-length = 20.0
-rest_length = 10.0

@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctxq6w74gvv3l"]
+
+[ext_resource type="Script" uid="uid://q6bfyngn6vle" path="res://z_Test/s.gd" id="2_q6xus"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j8356"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tf838"]
+
+[node name="Test" type="Node2D"]
+
+[node name="A" type="RigidBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-73, -44)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="A"]
+shape = SubResource("CircleShape2D_j8356")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(-59, -42)
+node_a = NodePath("../A")
+node_b = NodePath("../B")
+
+[node name="B" type="RigidBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-45, -43)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="B"]
+shape = SubResource("CircleShape2D_j8356")
+
+[node name="B2" type="RigidBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-15, -46)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="B2"]
+shape = SubResource("CircleShape2D_j8356")
+
+[node name="B3" type="RigidBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(17, -48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="B3"]
+shape = SubResource("CircleShape2D_j8356")
+
+[node name="B4" type="RigidBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(47, -46)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="B4"]
+shape = SubResource("CircleShape2D_j8356")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(9, -133)
+zoom = Vector2(2.1, 2.1)
+
+[node name="S" type="AnimatableBody2D" parent="."]
+position = Vector2(18, -99)
+script = ExtResource("2_q6xus")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="S"]
+polygon = PackedVector2Array(-26, -12, -9, 21, 16, 20, 31, -11, 10, 9, -5, 7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_tf838")

@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://dl2snoojjsghs"]
+
+[ext_resource type="Script" uid="uid://n2vg52ygfwv" path="res://Scene/GameMain/Player/player.gd" id="1_0vq4s"]
+[ext_resource type="PackedScene" uid="uid://b7mhid5ae4mlb" path="res://Class/Components/WallClimber/WallClimber.tscn" id="1_o66yj"]
+[ext_resource type="Script" uid="uid://8e4bc7c0k52e" path="res://Class/Components/SlimeBody/slime_body.gd" id="2_0vq4s"]
+[ext_resource type="Script" uid="uid://dx8rg3nh06kqw" path="res://Class/LerpCamera.gd" id="3_pd2ua"]
+[ext_resource type="PackedScene" uid="uid://c828advojoill" path="res://Class/Components/TestTerrain/TestTerrain.tscn" id="4_0r3dy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iac1v"]
+radius = 25.0
+
+[node name="Player" type="Node"]
+script = ExtResource("1_0vq4s")
+metadata/_edit_vertical_guides_ = [50.0, -50.0]
+
+[node name="WallClimber" parent="." instance=ExtResource("1_o66yj")]
+unique_name_in_owner = true
+
+[node name="Components" type="Node" parent="."]
+
+[node name="BodyLine" type="Line2D" parent="Components"]
+unique_name_in_owner = true
+closed = true
+
+[node name="BodyPolygon" type="Polygon2D" parent="Components"]
+unique_name_in_owner = true
+color = Color(0.156863, 1, 0.231373, 0.478431)
+
+[node name="BodyConstraint" type="AnimatableBody2D" parent="Components"]
+unique_name_in_owner = true
+collision_layer = 512
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/BodyConstraint"]
+shape = SubResource("CircleShape2D_iac1v")
+
+[node name="LerpCamera" type="Camera2D" parent="Components"]
+unique_name_in_owner = true
+script = ExtResource("3_pd2ua")
+metadata/_custom_type_script = "uid://dx8rg3nh06kqw"
+
+[node name="SlimeBody" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_0vq4s")
+metadata/_custom_type_script = "uid://8e4bc7c0k52e"
+
+[node name="TestNode" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="TestTerrain" parent="TestNode" instance=ExtResource("4_0r3dy")]
+position = Vector2(-1, 124)
+color = Color(0.894073, 0.594285, 0.54901, 1)
+polygon = PackedVector2Array(-293, -113, -236, -48, -208, -37, -177, -36, -99, -25, -62, -10, -56, 8, -122, 4, -282, -7, -562, -23, -657, -282, -745, -572, -957, -909, -787, -1028, -566, -1028, -430, -978, -402, -933, -367, -609, -324, -258)
+uv = PackedVector2Array(-2, -7, -1, -1, 106, -26, 57, 76, -103, 65, -211, -135, -312, -91)

@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfsbi22cbv35g"]
+
+[ext_resource type="Script" uid="uid://4oqaia0bq2ch" path="res://Scripts/Monitor/monitor.gd" id="1_hmexy"]
+
+[node name="Monitor" type="Node"]
+script = ExtResource("1_hmexy")
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Control" type="Control" parent="DebugLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="DebugLayer/Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 124.0
+offset_bottom = 51.0
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugLayer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugLayer/Control/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="FPSLabel" type="Label" parent="DebugLayer/Control/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "fps: "
+
+[node name="Label2" type="Label" parent="DebugLayer/Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2

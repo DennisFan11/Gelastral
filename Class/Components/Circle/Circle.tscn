@@ -13,7 +13,7 @@ const float START_AT = 0.45;
 const float END_AT = 0.5;
 void fragment() {
 	float r = length(UV-vec2(0.5));
-	COLOR = vec4(1.0);
+	COLOR = vec4(0.5);
 	COLOR.a = smoothstep(END_AT, START_AT , r);
 	// Called for every pixel the material is visible on.
 }
