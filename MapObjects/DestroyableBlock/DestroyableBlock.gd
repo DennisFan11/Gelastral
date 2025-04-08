@@ -26,6 +26,21 @@ var Polygon:PackedVector2Array:
 		Polygon = new
 		_base_scene.Polygon = new
 
+#region Palette
+
+enum TYPE { DIRT, COAL, STONE, IORN, COPPER }
+@export var _palette = {
+	TYPE.DIRT: Color("ab8465"),
+	TYPE.COAL: Color("161612"),
+	TYPE.STONE: Color("3e3551"),
+	TYPE.IORN: Color(),
+	TYPE.COPPER: Color(),
+	
+}
+
+
+#endregion
+
 
 ## 創建新的實例
 func _init(_id:int, _PosID:Vector2, _polygon:PackedVector2Array) -> void:

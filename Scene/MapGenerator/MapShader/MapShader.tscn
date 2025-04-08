@@ -6,6 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_whufv"]
 shader = ExtResource("3_8lew5")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 
 [node name="MapShader" type="Node2D"]
 script = ExtResource("1_251x4")
