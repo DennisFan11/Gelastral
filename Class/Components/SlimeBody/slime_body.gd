@@ -51,15 +51,18 @@ func get_center()-> Vector2:
 
 
 
-
+var player_pos:Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	_spawn_body()
+	_spawn_body(player_pos)
 
 func _physics_process(delta: float) -> void:
 	_area_constraint()
+	if !Geometry2D.is_point_in_polygon(player_pos, get_points()):
+		_spawn_body(player_pos)
 	#_input_move() TEST
-
+func _process(delta: float) -> void:
+	pass
 
 #==================== 內部實做 ========================================
 
@@ -70,12 +73,15 @@ var _body_point_arr: Array[RigidBody2D] = []
 const BODY_POINT_SIZE = 20 # 30
 const BODY_POINT_R = 50.0
 ## 生成節點
-func _spawn_body():
+func _spawn_body(pos:Vector2):
+	for i in get_children():
+		i.queue_free()
+	_body_point_arr = []
 	for i in range(BODY_POINT_SIZE):
 		var angle = (PI*2.0)/BODY_POINT_SIZE * -i
 		var node = preload("uid://cvmlmayf7eo4r").instantiate()
 		
-		node.position = Vector2( sin(angle), cos(angle) ) * BODY_POINT_R
+		node.position = Vector2( sin(angle), cos(angle) ) * BODY_POINT_R + pos
 		_body_point_arr.append( node )
 		add_child( node )
 	

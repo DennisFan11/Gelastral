@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://fw2drj044cs"]
+[gd_scene load_steps=6 format=3 uid="uid://fw2drj044cs"]
 
 [ext_resource type="PackedScene" uid="uid://cfoyfn5wnxo4m" path="res://Scene/MapGenerator/MapShader/MapShader.tscn" id="1_m1w40"]
 [ext_resource type="Script" uid="uid://dbrmtyne5nfh0" path="res://Scene/MapGenerator/map_generator.gd" id="1_nqybv"]
 [ext_resource type="PackedScene" uid="uid://d0wlq7akw4376" path="res://Scene/MapGenerator/ScreenShooter/ScreenShooter.tscn" id="2_wx6co"]
+[ext_resource type="Script" uid="uid://dx8rg3nh06kqw" path="res://Class/LerpCamera.gd" id="3_8h0p2"]
 [ext_resource type="Theme" uid="uid://ddsm8o2y4uwmj" path="res://Scene/TestUI_Theme.tres" id="4_u2srh"]
 
 [node name="MapGenerator" type="Node"]
@@ -10,7 +11,10 @@ script = ExtResource("1_nqybv")
 
 [node name="MapShader" parent="." instance=ExtResource("1_m1w40")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="LerpCamera" type="Camera2D" parent="."]
+zoom = Vector2(2.89, 2.89)
+script = ExtResource("3_8h0p2")
+metadata/_custom_type_script = "uid://dx8rg3nh06kqw"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -25,15 +29,14 @@ theme = ExtResource("4_u2srh")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
-offset_top = 357.0
-offset_right = -935.0
+offset_top = -291.0
+offset_right = 217.0
 offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Panel"]
 layout_mode = 1
@@ -49,6 +52,7 @@ layout_mode = 2
 [node name="FileNameEdit" type="TextEdit" parent="CanvasLayer/Control/Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "test"
 placeholder_text = "Enter Map Name"
 scroll_fit_content_height = true
 

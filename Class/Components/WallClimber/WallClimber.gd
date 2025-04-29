@@ -19,7 +19,7 @@ const INCREASE := 2.4
 const DECREASE := 3.4 #0.17
 
 const GRAVITY := MAX_SPEED*2.5 
-const JUMP_SPEED := GRAVITY/3.0
+const JUMP_SPEED := GRAVITY/1.5
 
 enum {IDLE, ON_WALL}
 

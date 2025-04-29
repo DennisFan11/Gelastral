@@ -1,26 +1,69 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfoyfn5wnxo4m"]
+[gd_scene load_steps=9 format=3 uid="uid://cfoyfn5wnxo4m"]
 
 [ext_resource type="Texture2D" uid="uid://cukmkemdmurd3" path="res://icon.svg" id="1_53jse"]
 [ext_resource type="Script" uid="uid://cm3cu31kv6ege" path="res://Scene/MapGenerator/MapShader/map_shader.gd" id="1_251x4"]
 [ext_resource type="Shader" uid="uid://bg6l3wjvxcwxn" path="res://Scene/MapGenerator/MapShader/MapShader.tres" id="3_8lew5"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6t5m"]
+shader = ExtResource("3_8lew5")
+shader_parameter/circle_weight = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scav3"]
+shader = ExtResource("3_8lew5")
+shader_parameter/circle_weight = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5uylj"]
+shader = ExtResource("3_8lew5")
+shader_parameter/circle_weight = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_whufv"]
 shader = ExtResource("3_8lew5")
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/circle_weight = 0.279
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s33sv"]
+shader = ExtResource("3_8lew5")
+shader_parameter/circle_weight = 0.279
 
 [node name="MapShader" type="Node2D"]
 script = ExtResource("1_251x4")
 
 [node name="Dirt" type="Sprite2D" parent="."]
-visible = false
+material = SubResource("ShaderMaterial_e6t5m")
+instance_shader_parameters/Color = Color(0.670588, 0.517647, 0.396078, 1)
+instance_shader_parameters/down_bound = 0.0
+instance_shader_parameters/up_bound = 1.0
 texture = ExtResource("1_53jse")
 
 [node name="Stone" type="Sprite2D" parent="."]
-visible = false
+material = SubResource("ShaderMaterial_scav3")
+instance_shader_parameters/Color = Color(0.411765, 0.376471, 0.545098, 1)
+instance_shader_parameters/down_bound = 0.27
+instance_shader_parameters/up_bound = 1.0
+texture = ExtResource("1_53jse")
 
 [node name="Coal" type="Sprite2D" parent="."]
-visible = false
+material = SubResource("ShaderMaterial_5uylj")
+instance_shader_parameters/Color = Color(0.172549, 0.172549, 0.145098, 1)
+instance_shader_parameters/FloatParameter = 8.515
+instance_shader_parameters/down_bound = 0.657
+instance_shader_parameters/up_bound = 1.0
+instance_shader_parameters/worley_weight = 1.0
+texture = ExtResource("1_53jse")
 
 [node name="Iorn" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_whufv")
+instance_shader_parameters/Color = Color(0.772549, 0.427451, 0.145098, 1)
+instance_shader_parameters/FloatParameter = 0.0
+instance_shader_parameters/down_bound = 0.536
+instance_shader_parameters/up_bound = 0.636
+instance_shader_parameters/worley_weight = 0.914
+texture = ExtResource("1_53jse")
+
+[node name="Copper" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s33sv")
+instance_shader_parameters/Color = Color(0.333333, 0.588235, 0.258824, 1)
+instance_shader_parameters/FloatParameter = 0.0
+instance_shader_parameters/down_bound = 0.722
+instance_shader_parameters/up_bound = 1.0
+instance_shader_parameters/worley_weight = 0.986
 texture = ExtResource("1_53jse")

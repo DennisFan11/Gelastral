@@ -7,4 +7,5 @@ domain_warp_fractal_octaves = 9
 domain_warp_fractal_gain = 7.66
 
 [resource]
+seamless = true
 noise = SubResource("FastNoiseLite_o5vjq")

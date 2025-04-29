@@ -1,6 +1,13 @@
 class_name DestoryableBlockBaseScene extends StaticBody2D
 
-var ID:int
+var ID:int:
+	set(new):
+		ID = new
+		if BlockShaderManager.shader.has(new):
+			%Polygon2D.material = BlockShaderManager.shader[new]
+		else:
+			%Polygon2D.texture = null
+			%Polygon2D.color = BlockShaderManager.palette[new]
 var Position:Vector2:
 	set(new):
 		Position = new

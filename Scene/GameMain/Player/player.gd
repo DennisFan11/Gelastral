@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 	
 
 func _process(delta: float) -> void:
-	
+	%SlimeBody.player_pos = _get_player_position()
 	var poly = %SlimeBody.get_points()
 	poly = Geometry2DEX.smooth(poly, 60)
 	%BodyPolygon.polygon = poly

@@ -35,7 +35,7 @@ func _add_block_to_key(ID:int, PosID:Vector2, Polygon:PackedVector2Array):
 		for i in old: # 切割所有舊方塊
 			var new_polygons = Geometry2D.clip_polygons(i["Polygon"], Polygon)
 			for new_polygon in new_polygons:
-				new.append( block_to_dict(ID, PosID, new_polygon) )
+				new.append( block_to_dict(i["ID"], PosID, new_polygon) )
 	new.append(block_to_dict(ID, PosID, Polygon)) # 添加新方塊
 	terrain[PosID] = new
 

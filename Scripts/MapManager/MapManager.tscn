@@ -1,12 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmp6fn7dxxd7p"]
+[gd_scene load_steps=7 format=3 uid="uid://bmp6fn7dxxd7p"]
 
 [ext_resource type="Script" uid="uid://4bnsotfw2ya4" path="res://Scripts/MapManager/MapManager.gd" id="1_odyun"]
+[ext_resource type="Shader" uid="uid://cvcwgowkk3fmw" path="res://Scripts/MapManager/terrain_shader.tres" id="2_jlx28"]
+[ext_resource type="Script" uid="uid://d14rvbu6ief40" path="res://Class/Circle.gd" id="3_ii2vt"]
+
+[sub_resource type="Curve" id="Curve_jlx28"]
+_data = [Vector2(0, 0.213483), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ii2vt"]
+curve = SubResource("Curve_jlx28")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ii2vt"]
+shader = ExtResource("2_jlx28")
+shader_parameter/curve_texture = SubResource("CurveTexture_ii2vt")
 
 [node name="MapManager" type="Node2D"]
 script = ExtResource("1_odyun")
 
-[node name="BlockNode" type="Node2D" parent="."]
+[node name="Circle" type="Node2D" parent="."]
+script = ExtResource("3_ii2vt")
+radius = 50.0
+metadata/_custom_type_script = "uid://d14rvbu6ief40"
+
+[node name="BlockNode" type="CanvasGroup" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ii2vt")
 
 [node name="HintNode" type="Node2D" parent="."]
 unique_name_in_owner = true

@@ -1,5 +1,5 @@
 @tool
-class_name Circle extends Node2D
+extends Node2D
 
 @export var R:float :
 	set(new):

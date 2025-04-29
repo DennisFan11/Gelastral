@@ -1,30 +1,16 @@
-[gd_resource type="VisualShader" load_steps=18 format=3 uid="uid://bg6l3wjvxcwxn"]
+[gd_resource type="VisualShader" load_steps=36 format=3 uid="uid://bg6l3wjvxcwxn"]
 
 [ext_resource type="Texture2D" uid="uid://b48tsrb086rq2" path="res://Scene/MapGenerator/MapShader/shaders/ORE_NOISE.tres" id="1_bt44v"]
-
-[sub_resource type="Gradient" id="Gradient_jmhoq"]
-resource_local_to_scene = true
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.416667, 0.716667)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_sw21n"]
-gradient = SubResource("Gradient_jmhoq")
-
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_31vru"]
-texture = SubResource("GradientTexture1D_sw21n")
+[ext_resource type="Script" uid="uid://nihi74626iu6" path="res://addons/ShaderLib_v2_2_4/Procedural/Noise/GradientNoise.gd" id="2_31vru"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_sw21n"]
 texture = ExtResource("1_bt44v")
+texture_type = 1
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_sw21n"]
-parameter_name = "ColorParameter"
+parameter_name = "Color"
+qualifier = 2
 default_value_enabled = true
-
-[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_31vru"]
-default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
-op_type = 2
-operator = 2
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_sw21n"]
 input_name = "uv"
@@ -72,16 +58,133 @@ curve = SubResource("Curve_sw21n")
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_x05km"]
 texture = SubResource("CurveTexture_31vru")
 
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_sw21n"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_x05km"]
+parameter_name = "up_bound"
+qualifier = 2
+hint = 1
+default_value_enabled = true
+default_value = 0.35
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_bt44v"]
+parameter_name = "down_bound"
+qualifier = 2
+hint = 1
+default_value_enabled = true
+default_value = 0.3
+
+[sub_resource type="VisualShaderNodeCompare" id="VisualShaderNodeCompare_31vru"]
+function = 4
+
+[sub_resource type="VisualShaderNodeCompare" id="VisualShaderNodeCompare_x05km"]
+function = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_bt44v"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_sw21n"]
+default_input_values = [0, 0.0, 1, 1.0, 2, 0.0]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_31vru"]
+output_port_for_preview = 0
+default_input_values = [0, 1.0, 1, 0.0]
+operator = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_x05km"]
+default_input_values = [0, 0.0, 1, 2.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_sw21n"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_31vru"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_bt44v"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_sw21n"]
+parameter_name = "FloatParameter"
+qualifier = 2
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeGlobalExpression" id="VisualShaderNodeGlobalExpression_sw21n"]
+size = Vector2(620, 680)
+expression = "vec2 random(vec2 uv) {
+	return vec2(fract(sin(dot(uv.xy,
+		vec2(12.9898,78.233))) * 43758.5453123));
+}
+
+float worley(vec2 uv, float columns, float rows) {
+	
+	vec2 index_uv = floor(vec2(uv.x * columns, uv.y * rows));
+	vec2 fract_uv = fract(vec2(uv.x * columns, uv.y * rows));
+	
+	float minimum_dist = 1.0;  
+	
+	for (int y= -1; y <= 1; y++) {
+		for (int x= -1; x <= 1; x++) {
+			vec2 neighbor = vec2(float(x),float(y));
+			vec2 point = random(index_uv + neighbor);
+			
+			vec2 diff = neighbor + point - fract_uv;
+			float dist = length(diff);
+			minimum_dist = min(minimum_dist, dist);
+		}
+	}
+	
+	return minimum_dist;
+}"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_31vru"]
+output_port_for_preview = 0
+size = Vector2(620, 380)
+expression = "output1 = 1.0 - worley(uv, 10.0, 10.0);"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_x05km"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_31vru"]
+default_input_values = [0, 0.0, 1, 1.0, 2, 0.835]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_31vru"]
+parameter_name = "worley_weight"
+qualifier = 2
+hint = 1
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_pyf1l"]
+parameter_name = "circle_weight"
+hint = 1
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_x05km"]
+output_port_for_preview = 0
+default_input_values = [0, null, 1, 50.0]
+initialized = true
+script = ExtResource("2_31vru")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_bt44v"]
+output_port_for_preview = 0
+
 [resource]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
-uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-uniform sampler2D tex_frg_16;
-uniform sampler2D tex_frg_15;
+instance uniform vec4 Color : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+instance uniform float FloatParameter = 0.0;
+uniform sampler2D tex_frg_16 : source_color;
+instance uniform float worley_weight : hint_range(0.0, 1.0) = 0.0;
+uniform float circle_weight : hint_range(0.0, 1.0) = 0.0;
+instance uniform float down_bound : hint_range(0.0, 1.0) = 0.30000001192093;
+instance uniform float up_bound : hint_range(0.0, 1.0) = 0.34999999403954;
 uniform sampler2D tex_frg_42;
 
 
+// GradientNoise
+#include \"res://addons/ShaderLib_v2_2_4/Procedural/Procedural.gdshaderinc\"
 // GlobalExpression:0
 	float signed_angle(vec2 a, vec2 b) {
 	    float angle = atan(b.y, b.x) - atan(a.y, a.x);
@@ -91,22 +194,81 @@ uniform sampler2D tex_frg_42;
 	    return (angle+PI)/(PI*2.0); // 弧度
 	}
 	
+// GlobalExpression:1
+	vec2 random(vec2 uv) {
+		return vec2(fract(sin(dot(uv.xy,
+			vec2(12.9898,78.233))) * 43758.5453123));
+	}
+	
+	float worley(vec2 uv, float columns, float rows) {
+		
+		vec2 index_uv = floor(vec2(uv.x * columns, uv.y * rows));
+		vec2 fract_uv = fract(vec2(uv.x * columns, uv.y * rows));
+		
+		float minimum_dist = 1.0;  
+		
+		for (int y= -1; y <= 1; y++) {
+			for (int x= -1; x <= 1; x++) {
+				vec2 neighbor = vec2(float(x),float(y));
+				vec2 point = random(index_uv + neighbor);
+				
+				vec2 diff = neighbor + point - fract_uv;
+				float dist = length(diff);
+				minimum_dist = min(minimum_dist, dist);
+			}
+		}
+		
+		return minimum_dist;
+	}
 
 void fragment() {
 // ColorParameter:17
-	vec4 n_out17p0 = ColorParameter;
+	vec4 n_out17p0 = Color;
+
+
+// FloatParameter:57
+	float n_out57p0 = FloatParameter;
+
+
+// Input:54
+	vec2 n_out54p0 = UV;
+
+
+// VectorOp:55
+	vec2 n_out55p0 = vec2(n_out57p0) + n_out54p0;
 
 
 // Texture2D:16
-	vec4 n_out16p0 = texture(tex_frg_16, UV);
+	vec4 n_out16p0 = texture(tex_frg_16, n_out55p0);
 
 
-// Texture2D:15
-	vec4 n_out15p0 = texture(tex_frg_15, vec2(n_out16p0.xy));
+	float n_out60p0;
+// Expression:60
+	n_out60p0 = 0.0;
+	{
+		n_out60p0 = 1.0 - worley(n_out55p0, 10.0, 10.0);
+	}
 
 
-// VectorOp:18
-	vec4 n_out18p0 = n_out17p0 * n_out15p0;
+	float n_out66p0;
+// GradientNoise:66
+	float n_in66p1 = 50.00000;
+	{
+		n_out66p0 = gradient_noise(UV, n_in66p1);
+	}
+
+
+// Mix:67
+	float n_in67p2 = 0.50000;
+	float n_out67p0 = mix(n_out60p0, n_out66p0, n_in67p2);
+
+
+// FloatParameter:64
+	float n_out64p0 = worley_weight;
+
+
+// Mix:62
+	float n_out62p0 = mix(n_out16p0.x, n_out67p0, n_out64p0);
 
 
 // Input:20
@@ -116,6 +278,54 @@ void fragment() {
 // VectorOp:21
 	vec2 n_in21p1 = vec2(0.50000, 0.50000);
 	vec2 n_out21p0 = n_out20p0 - n_in21p1;
+
+
+// VectorLen:26
+	float n_out26p0 = length(n_out21p0);
+
+
+// FloatOp:51
+	float n_in51p1 = 2.00000;
+	float n_out51p0 = n_out26p0 * n_in51p1;
+
+
+// FloatOp:50
+	float n_in50p0 = 1.00000;
+	float n_out50p0 = n_in50p0 - n_out51p0;
+
+
+// FloatParameter:65
+	float n_out65p0 = circle_weight;
+
+
+// Mix:49
+	float n_out49p0 = mix(n_out62p0, n_out50p0, n_out65p0);
+
+
+// Clamp:52
+	float n_in52p1 = 0.00000;
+	float n_in52p2 = 1.00000;
+	float n_out52p0 = clamp(n_out49p0, n_in52p1, n_in52p2);
+
+
+// FloatParameter:45
+	float n_out45p0 = down_bound;
+
+
+// Compare:47
+	bool n_out47p0 = n_out52p0 > n_out45p0;
+
+
+// FloatParameter:44
+	float n_out44p0 = up_bound;
+
+
+// Compare:46
+	bool n_out46p0 = n_out52p0 < n_out44p0;
+
+
+// FloatOp:48
+	float n_out48p0 = (n_out47p0 ? 1.0 : 0.0) * (n_out46p0 ? 1.0 : 0.0);
 
 
 // Vector2Constant:35
@@ -134,43 +344,39 @@ void fragment() {
 	vec4 n_out42p0 = texture(tex_frg_42, vec2(n_out34p0));
 
 
-// VectorLen:26
-	float n_out26p0 = length(n_out21p0);
-
-
 // Compare:29
 	bool n_out29p0 = n_out42p0.x > n_out26p0;
 
 
+// FloatOp:43
+	float n_out43p0 = n_out48p0 * (n_out29p0 ? 1.0 : 0.0);
+
+
 // Output:0
-	COLOR.rgb = vec3(n_out18p0.xyz);
-	COLOR.a = (n_out29p0 ? 1.0 : 0.0);
+	COLOR.rgb = vec3(n_out17p0.xyz);
+	COLOR.a = n_out43p0;
 
 
 }
 "
-graph_offset = Vector2(-1095.91, 155.151)
+graph_offset = Vector2(-624.502, 125.028)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(680, 1560)
-nodes/fragment/15/node = SubResource("VisualShaderNodeTexture_31vru")
-nodes/fragment/15/position = Vector2(-80, 720)
 nodes/fragment/16/node = SubResource("VisualShaderNodeTexture_sw21n")
-nodes/fragment/16/position = Vector2(-340, 720)
+nodes/fragment/16/position = Vector2(-1640, 600)
 nodes/fragment/17/node = SubResource("VisualShaderNodeColorParameter_sw21n")
-nodes/fragment/17/position = Vector2(140, 620)
-nodes/fragment/18/node = SubResource("VisualShaderNodeVectorOp_31vru")
-nodes/fragment/18/position = Vector2(320.673, 925.589)
+nodes/fragment/17/position = Vector2(300, 1000)
 nodes/fragment/20/node = SubResource("VisualShaderNodeInput_sw21n")
-nodes/fragment/20/position = Vector2(-1820, 2140)
+nodes/fragment/20/position = Vector2(-2580, 2440)
 nodes/fragment/21/node = SubResource("VisualShaderNodeVectorOp_x05km")
-nodes/fragment/21/position = Vector2(-1480, 2100)
+nodes/fragment/21/position = Vector2(-2240, 2400)
 nodes/fragment/26/node = SubResource("VisualShaderNodeVectorLen_pyf1l")
-nodes/fragment/26/position = Vector2(-520, 2080)
+nodes/fragment/26/position = Vector2(-1420, 2400)
 nodes/fragment/29/node = SubResource("VisualShaderNodeCompare_sw21n")
-nodes/fragment/29/position = Vector2(0, 2040)
+nodes/fragment/29/position = Vector2(-1120, 2340)
 nodes/fragment/33/node = SubResource("VisualShaderNodeGlobalExpression_31vru")
-nodes/fragment/33/position = Vector2(-3320, 1400)
+nodes/fragment/33/position = Vector2(-2800, 2020)
 nodes/fragment/33/size = Vector2(560, 260)
 nodes/fragment/33/input_ports = ""
 nodes/fragment/33/output_ports = ""
@@ -183,13 +389,87 @@ nodes/fragment/33/expression = "float signed_angle(vec2 a, vec2 b) {
 }
 "
 nodes/fragment/34/node = SubResource("VisualShaderNodeExpression_x05km")
-nodes/fragment/34/position = Vector2(-1200, 1800)
+nodes/fragment/34/position = Vector2(-1960, 2100)
 nodes/fragment/34/size = Vector2(500, 173)
 nodes/fragment/34/input_ports = "0,3,a;1,3,b;"
 nodes/fragment/34/output_ports = "0,0,angle;"
 nodes/fragment/34/expression = "angle = signed_angle(a, b);"
 nodes/fragment/35/node = SubResource("VisualShaderNodeVec2Constant_bt44v")
-nodes/fragment/35/position = Vector2(-1200, 2000)
+nodes/fragment/35/position = Vector2(-1960, 2300)
 nodes/fragment/42/node = SubResource("VisualShaderNodeTexture_x05km")
-nodes/fragment/42/position = Vector2(-380, 1780)
-nodes/fragment/connections = PackedInt32Array(16, 0, 15, 0, 17, 0, 18, 0, 15, 0, 18, 1, 18, 0, 0, 0, 21, 0, 26, 0, 26, 0, 29, 1, 20, 0, 21, 0, 35, 0, 34, 1, 21, 0, 34, 0, 29, 0, 0, 1, 42, 0, 29, 0, 34, 0, 42, 0)
+nodes/fragment/42/position = Vector2(-1420, 2100)
+nodes/fragment/43/node = SubResource("VisualShaderNodeFloatOp_sw21n")
+nodes/fragment/43/position = Vector2(313.59, 1612.85)
+nodes/fragment/44/node = SubResource("VisualShaderNodeFloatParameter_x05km")
+nodes/fragment/44/position = Vector2(-700, 1020)
+nodes/fragment/45/node = SubResource("VisualShaderNodeFloatParameter_bt44v")
+nodes/fragment/45/position = Vector2(-700, 720)
+nodes/fragment/46/node = SubResource("VisualShaderNodeCompare_31vru")
+nodes/fragment/46/position = Vector2(-256.359, 1078.91)
+nodes/fragment/47/node = SubResource("VisualShaderNodeCompare_x05km")
+nodes/fragment/47/position = Vector2(-260, 880)
+nodes/fragment/48/node = SubResource("VisualShaderNodeFloatOp_bt44v")
+nodes/fragment/48/position = Vector2(-7.31316, 995.379)
+nodes/fragment/49/node = SubResource("VisualShaderNodeMix_sw21n")
+nodes/fragment/49/position = Vector2(-760, 1480)
+nodes/fragment/50/node = SubResource("VisualShaderNodeFloatOp_31vru")
+nodes/fragment/50/position = Vector2(-1000, 1860)
+nodes/fragment/51/node = SubResource("VisualShaderNodeFloatOp_x05km")
+nodes/fragment/51/position = Vector2(-1180, 1860)
+nodes/fragment/52/node = SubResource("VisualShaderNodeClamp_sw21n")
+nodes/fragment/52/position = Vector2(-560, 1480)
+nodes/fragment/54/node = SubResource("VisualShaderNodeInput_31vru")
+nodes/fragment/54/position = Vector2(-2200, 780)
+nodes/fragment/55/node = SubResource("VisualShaderNodeVectorOp_bt44v")
+nodes/fragment/55/position = Vector2(-1860, 640)
+nodes/fragment/57/node = SubResource("VisualShaderNodeFloatParameter_sw21n")
+nodes/fragment/57/position = Vector2(-2160, 540)
+nodes/fragment/59/node = SubResource("VisualShaderNodeGlobalExpression_sw21n")
+nodes/fragment/59/position = Vector2(-1640, -740)
+nodes/fragment/59/size = Vector2(620, 680)
+nodes/fragment/59/input_ports = ""
+nodes/fragment/59/output_ports = ""
+nodes/fragment/59/expression = "vec2 random(vec2 uv) {
+	return vec2(fract(sin(dot(uv.xy,
+		vec2(12.9898,78.233))) * 43758.5453123));
+}
+
+float worley(vec2 uv, float columns, float rows) {
+	
+	vec2 index_uv = floor(vec2(uv.x * columns, uv.y * rows));
+	vec2 fract_uv = fract(vec2(uv.x * columns, uv.y * rows));
+	
+	float minimum_dist = 1.0;  
+	
+	for (int y= -1; y <= 1; y++) {
+		for (int x= -1; x <= 1; x++) {
+			vec2 neighbor = vec2(float(x),float(y));
+			vec2 point = random(index_uv + neighbor);
+			
+			vec2 diff = neighbor + point - fract_uv;
+			float dist = length(diff);
+			minimum_dist = min(minimum_dist, dist);
+		}
+	}
+	
+	return minimum_dist;
+}"
+nodes/fragment/60/node = SubResource("VisualShaderNodeExpression_31vru")
+nodes/fragment/60/position = Vector2(-2880, 1060)
+nodes/fragment/60/size = Vector2(620, 380)
+nodes/fragment/60/input_ports = "0,3,uv;"
+nodes/fragment/60/output_ports = "0,0,output1;"
+nodes/fragment/60/expression = "output1 = 1.0 - worley(uv, 10.0, 10.0);"
+nodes/fragment/61/node = SubResource("VisualShaderNodeInput_x05km")
+nodes/fragment/61/position = Vector2(-3400, 1000)
+nodes/fragment/62/node = SubResource("VisualShaderNodeMix_31vru")
+nodes/fragment/62/position = Vector2(-1280, 1360)
+nodes/fragment/64/node = SubResource("VisualShaderNodeFloatParameter_31vru")
+nodes/fragment/64/position = Vector2(-1820, 1660)
+nodes/fragment/65/node = SubResource("VisualShaderNodeFloatParameter_pyf1l")
+nodes/fragment/65/position = Vector2(-1200, 1560)
+nodes/fragment/66/node = SubResource("VisualShaderNodeCustom_x05km")
+nodes/fragment/66/position = Vector2(-2200, 1280)
+nodes/fragment/67/node = SubResource("VisualShaderNodeMix_bt44v")
+nodes/fragment/67/position = Vector2(-1900, 1160)
+nodes/fragment/connections = PackedInt32Array(21, 0, 26, 0, 26, 0, 29, 1, 20, 0, 21, 0, 35, 0, 34, 1, 21, 0, 34, 0, 42, 0, 29, 0, 34, 0, 42, 0, 29, 0, 43, 1, 43, 0, 0, 1, 17, 0, 0, 0, 47, 0, 48, 0, 46, 0, 48, 1, 45, 0, 47, 1, 44, 0, 46, 1, 48, 0, 43, 0, 26, 0, 51, 0, 51, 0, 50, 1, 50, 0, 49, 1, 49, 0, 52, 0, 52, 0, 46, 0, 52, 0, 47, 0, 54, 0, 55, 1, 55, 0, 16, 0, 57, 0, 55, 0, 16, 0, 62, 0, 62, 0, 49, 0, 64, 0, 62, 2, 65, 0, 49, 2, 60, 0, 67, 0, 67, 0, 62, 1, 66, 0, 67, 1, 55, 0, 60, 0)

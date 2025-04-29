@@ -6,7 +6,7 @@ static var instance:MapData:
 			instance = MapData.new()
 		return instance
 
-@export var spawn_point:Vector2 = Vector2.ZERO
+@export var spawn_point:Vector2 = Vector2(5000.0, -100.0)
 @export var terrain_data:TerrainData
 
 

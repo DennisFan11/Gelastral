@@ -11,11 +11,11 @@ var Busy:bool = false
 var ID:int:
 	set(new):
 		ID = new
-		_base_scene.ID = new
+		if _base_scene: _base_scene.ID = new
 var PosID:Vector2: # FIXME 調整為基於 BlockSize ID
 	set(new):
 		PosID = new
-		_base_scene.Position = new * BlockSize
+		if _base_scene: _base_scene.Position = new * BlockSize
 var Polygon:PackedVector2Array:
 	set(new):
 		if Geometry2D.triangulate_polygon(new).size() == 0:
@@ -24,19 +24,11 @@ var Polygon:PackedVector2Array:
 			return
 		#new = Geometry2D.convex_hull(new)
 		Polygon = new
-		_base_scene.Polygon = new
+		if _base_scene: _base_scene.Polygon = new
 
 #region Palette
 
-enum TYPE { DIRT, COAL, STONE, IORN, COPPER }
-@export var _palette = {
-	TYPE.DIRT: Color("ab8465"),
-	TYPE.COAL: Color("161612"),
-	TYPE.STONE: Color("3e3551"),
-	TYPE.IORN: Color(),
-	TYPE.COPPER: Color(),
-	
-}
+
 
 
 #endregion
@@ -44,11 +36,29 @@ enum TYPE { DIRT, COAL, STONE, IORN, COPPER }
 
 ## 創建新的實例
 func _init(_id:int, _PosID:Vector2, _polygon:PackedVector2Array) -> void:
+	ID = _id; PosID = _PosID; Polygon = _polygon
+	var node := VisibleOnScreenNotifier2D.new()
+	add_child(node)
+	
+	_spawn_base_scene()
+	node.screen_entered.connect(_spawn_base_scene)
+	node.screen_exited.connect( _free_base_scene)
+	node.position = _PosID* BlockSize
+	node.rect = Rect2(Vector2.ONE * -100, Vector2.ONE * 200)
+	
+	
+func _spawn_base_scene():
+	if _base_scene:
+		return
+	_free_base_scene()
 	var file := preload("res://MapObjects/DestroyableBlock/BaseScene/DestoryableBlock_BaseScene.tscn")
 	_base_scene = file.instantiate()
 	add_child(_base_scene)
-	ID = _id; PosID = _PosID; Polygon = _polygon
-	
+	ID = ID; PosID = PosID; Polygon = Polygon
+func _free_base_scene():
+	if _base_scene: 
+		_base_scene.queue_free()
+		_base_scene = null
 
 
 func Clip(global_polygon:PackedVector2Array)-> float:

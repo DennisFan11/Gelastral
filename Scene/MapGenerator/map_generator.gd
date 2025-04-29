@@ -3,7 +3,7 @@ class_name MapGenerator extends Node
 var _thread_count:int = 1
 var _screen_shooter_scene := preload("uid://d0wlq7akw4376")
 
-const MAP_SIZE: Vector2 = Vector2(5, 5)
+const MAP_SIZE: Vector2 = Vector2(100, 100)
 
 ## 修改線程數量
 func _on_thread_slider_value_changed(value: float) -> void:
@@ -24,13 +24,17 @@ func _single_save():
 	var prog_max = MAP_SIZE.x * MAP_SIZE.y
 	for i in range(MAP_SIZE.x):
 		for j in range(MAP_SIZE.y):
-			for z in await %ScreenShooter.scan_block(Vector2(i, j)):
+			for z in await %ScreenShooter.scan_block(
+				Vector2(i, j),
+				MAP_SIZE,
+			):
 				data.add_dict_to_key(z)
-				print(z)
+				#print(z)
 			prog += 1
 			print_rich(_progress_bar(prog / prog_max))
 	MapData.instance.terrain_data = data
 	MapData.save_map("test")
+	print("map saved !")
 	
 
 #func _thread_save():

@@ -5,7 +5,7 @@ class_name ScreenShooter extends Node
 ## 返回 [{"ID":ID, "PosID":PosID, "Polygon":Polygon}]
 func scan_block(
 		block_id:Vector2, 
-		map_size: Vector2 = Vector2(5, 5), # 地圖尺寸
+		map_size: Vector2, # 地圖尺寸
 		block_size: Vector2 = MapManager.BLOCK_SIZE, # 方塊尺寸
 		precision: Vector2 =  Vector2.ONE # 掃描精度
 	)-> Array[Dictionary]:
@@ -14,7 +14,7 @@ func scan_block(
 	%MapShader.position = (map_size * block_size)/2.0
 	%Viewport.size = block_size * precision
 	
-	%Camera2D.offset = (block_id * block_size) + Vector2.ONE * (block_size/2.0)
+	%Camera2D.offset = (block_id * block_size)# + Vector2.ONE * (block_size/2.0)
 	%Camera2D.zoom = precision
 	for i:Node2D in %MapShader.get_scan_array():
 		i.visible = false
